@@ -1,0 +1,25 @@
+- name: Apply a script to device
+  hosts: fortimanager
+  gather_facts: false
+  connection: httpapi
+  vars:
+    ansible_httpapi_use_ssl: true
+    ansible_httpapi_validate_certs: false
+    ansible_httpapi_port: 443
+    device_adom: "root"
+    script_name: "Test_script"
+    device_name: "CustomHostName"
+    device_vdom: "root"
+  tasks:
+    - name: Create a Script to later execute
+      fortinet.fortimanager.fmgr_dvmdb_script:
+        adom: "{{ device_adom }}"
+        state: "present"
+        dvmdb_script:
+          name: "{{ script_name }}"
+          desc: "A script created via Ansible"
+          content: |
+            config system global
+                set remoteauthtimeout 80
+            end
+          type: "cli"
