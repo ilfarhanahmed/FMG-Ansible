@@ -1,0 +1,1 @@
+Use Ansible for FortiManager.
