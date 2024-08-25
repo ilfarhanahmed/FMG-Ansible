@@ -55,7 +55,11 @@ git branch -d <branch_name>
 git branch -m <old name> <new name>
 
 //push to github
-git remote add origin https://github.com/username/repo
+git remote add origin git@github.com:<user><repo>
 git branch -M <target github branch>
-git push -u origin <branch name>
 
+//pull 
+git pull origin <branch>
+
+//push
+git push -u origin <branch name>
