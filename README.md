@@ -1,6 +1,16 @@
 git --global user.email "abc@xyz.com"
 git --global user.name "abc"
 
+//Generate SSH key:
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+//Get the key and add to GitHub > Settings > SSH
+cat ~/.ssh/id_ed25519
+
+//Adding ssh key to ssh agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
 local directory
 
 //git start
@@ -47,3 +57,5 @@ git branch -m <old name> <new name>
 //push to github
 git remote add origin https://github.com/username/repo
 git branch -M <target github branch>
+git push -u origin <branch name>
+
