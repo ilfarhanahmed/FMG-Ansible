@@ -8,7 +8,7 @@
     ansible_httpapi_port: 443
     device_adom: "root"
     script_name: "Test_script"
-    device_name: "CustomHosti"
+    device_name: "CustomHostName"
     device_vdom: "root"
   tasks:
     - name: Create a Script to later execute
