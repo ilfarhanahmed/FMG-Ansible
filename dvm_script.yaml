@@ -3,9 +3,7 @@
   gather_facts: false
   connection: httpapi
   vars:
-    ansible_httpapi_use_ssl: true
-    ansible_httpapi_validate_certs: false
-    ansible_httpapi_port: 443
+
     device_adom: "root"
     script_name: "Test_script"
     device_name: "CustomHostName"
