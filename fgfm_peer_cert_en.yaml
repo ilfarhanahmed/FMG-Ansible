@@ -27,7 +27,6 @@
     - name: Enable fgfm-peercert-withoutsn if version matches criteria
       fmgr_system_global:
         bypass_validation: yes
-        adom: "root" # specify your ADOM if different
         system_global:
           fgfm-peercert-withoutsn: "enable"
       when: is_target_version
