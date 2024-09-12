@@ -10,11 +10,15 @@
         method: POST
         body_format: json
         headers:
+          Content-Type: "application/json"
           Authorization: "{{ auth }}"
         body:
-          method: "get"
+          method: "exec"
           params:
-            - url: "/sys/status"
+            data:
+              - user: "user"
+              - passwd: "pass"
+            - url: "/sys/login/user"
 
       register: auth_response
 
