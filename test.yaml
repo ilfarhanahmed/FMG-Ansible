@@ -1,10 +1,10 @@
-- name: Retrieve FortiManager global config
+- name: Retrieve FortiManager System Settings
   hosts: fortimanager
   gather_facts: no
   vars:
   
   tasks:
-    - name: Obtain authentication token from FortiManager
+    - name: get system status
       uri:
         url: "{{ fmg_api_url }}"
         method: POST
