@@ -16,8 +16,8 @@
           method: "exec"
           params:
             data:
-              - user: "user"
-              - passwd: "pass"
+              user: "user"
+              passwd: "pass"
             - url: "/sys/login/user"
 
       register: auth_response
