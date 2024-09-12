@@ -1,7 +1,8 @@
 - name: Retrieve FortiManager global config
   hosts: fortimanager
   gather_facts: no
-
+  vars:
+  
   tasks:
     - name: Obtain authentication token from FortiManager
       uri:
