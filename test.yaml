@@ -18,8 +18,6 @@
 
       register: auth_response
 
-
-
-     - name: Print authenticated response
+    - name: Print authenticated response
       debug:
         var: auth_response.content
