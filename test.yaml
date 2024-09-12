@@ -1,6 +1,7 @@
 ---
 - name: FortiManager API interaction to get system status
   hosts: localhost
+  gather_facts: no
   tasks:
 
     - name: Login to FortiManager
