@@ -1,0 +1,28 @@
+- name: Retrieve FortiManager global config
+  hosts: fortimanager
+  gather_facts: no
+  vars:
+    
+    fortimanager_api_url: "{{ fmg_api_url }}"
+	  Authorization: "auth"
+
+  tasks:
+    - name: Obtain authentication token from FortiManager
+      uri:
+        url: "{{ fortimanager_api_url }}"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: {{Authorization}}
+        body:
+          method: "get"
+          params:
+            - url: "/sys/status"
+
+      register: auth_response
+
+
+
+     - name: Print authenticated response
+      debug:
+        var: auth_response.content
