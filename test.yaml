@@ -1,27 +1,80 @@
-- name: Retrieve FortiManager System Settings
-  hosts: fortimanager
-  gather_facts: no
-  vars:
-  
+---
+- name: FortiManager API interaction to get system status
+  hosts: localhost
   tasks:
-    - name: get system status
+
+    - name: Login to FortiManager
       uri:
         url: "{{ fmg_api_url }}"
         method: POST
-        body_format: json
         headers:
           Content-Type: "application/json"
-          Authorization: "{{ auth }}"
-        body:
-          method: "exec"
-          params:
-            data:
-              user: "user"
-              passwd: "pass"
-            - url: "/sys/login/user"
+        body: >
+          {
+            "method": "exec",
+            "params": [
+              {
+                "url": "/sys/login/user",
+                "data": {
+                  "user": "{{ user }}",
+                  "passwd": "{{ pass }}"
+                }
+              }
+            ],
+            "id": 1
+          }
+        body_format: json
+        validate_certs: no
+        return_content: yes
+      register: login_response
 
-      register: auth_response
+    - name: Extract session ID from login response
+      set_fact:
+        session_id: "{{ login_response.json.session }}"  # Captures session token
 
-    - name: Print authenticated response
+    - name: Get system status from FortiManager
+      uri:
+        url: "{{ fmg_api_url }}"
+        method: POST
+        headers:
+          Content-Type: "application/json"
+        body: >
+          {
+            "method": "get",
+            "params": [
+              {
+                "url": "/sys/status",
+                "session": "{{ session_id }}"
+              }
+            ],
+            "id": 1
+          }
+        body_format: json
+        validate_certs: no
+        return_content: yes
+      register: status_response
+
+    - name: Display system status
       debug:
-        var: auth_response.content
+        var: status_response.json
+
+    - name: Log out from FortiManager
+      uri:
+        url: "{{ fmg_api_url }}"
+        method: POST
+        headers:
+          Content-Type: "application/json"
+        body: >
+          {
+            "method": "exec",
+            "params": [
+              {
+                "url": "/sys/logout",
+                "session": "{{ session_id }}"
+              }
+            ],
+            "id": 1
+          }
+        body_format: json
+        validate_certs: no
+        return_content: yes
